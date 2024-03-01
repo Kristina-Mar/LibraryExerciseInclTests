@@ -12,15 +12,13 @@ namespace LibraryExercise
         private static int bookIndex = 0;
         public Patron[] AllPatrons = new Patron[100]; // Maximum number of books set to 100 for the purpose of the excercise.
         private static int patronIndex = 0;
-        public void AddNewBook(string bookName, Author author, int yearOfRelease)
+        public void AddNewBook(Book book)
         {
-            Book book = new Book(bookName, author, yearOfRelease);
             AllBooks[bookIndex] = book;
             bookIndex++; //The program remembers where to put the next new book, aka the next free index.
         }
-        public void AddNewPatron(string firstName, string lastName)
+        public void AddNewPatron(Patron patron)
         {
-            Patron patron = new Patron(firstName, lastName);
             AllPatrons[patronIndex] = patron;
             patronIndex++; //The program remembers where to put the next new patron in the array, aka the next free index.
         }
