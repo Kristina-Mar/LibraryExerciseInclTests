@@ -39,20 +39,36 @@ namespace LibraryExercise.Tests
             }
             Assert.True(wasNewBookAdded);
         }
-        //library.AddNewPatron("Peter", "Scully");
-        //library.AddNewPatron("Katherine", "Murray");
-        
+        [Fact]
+        public void TestLendBook()
+        {
+            Library library = new Library();
+            Patron patron1 = new Patron("Katherine", "Murray");
+            Author author1 = new Author("Jane", "Austen", new DateOnly(1775, 12, 16));
+            Book book1 = new Book("Pride and prejudice", author1, 1813);
+            library.LendBook(book1, patron1);
+            Assert.True(book1.IsBorrowed); // Checks that the book is successfully lended.
 
-        //Author michaelChabon = new Author("Michael", "Chabon", new DateOnly(1963, 5, 24));
-        //library.AddNewBook("The amazing adventures of Kavalier & Clay", michaelChabon, 2000);
-        //library.LendBook(3, 2);
-        //library.LendBook(2, 2);
-        //library.LendBook(1, 2);
-        //library.LendBook(3, 1);
-        //library.LendBook(1, 1);
-        //library.ReturnBook(1, 2);
-        //library.ReturnBook(3, 2);
-        //library.LendBook(3, 3);
-        //library.ListAllPatrons();
+            Patron patron2 = new Patron("Jane", "Powell");
+            library.LendBook(book1, patron2);
+            bool bookBorrowedToSecondPerson = false;
+            for (int i = 0; i < patron2.BorrowedBooks.Length; i++)
+            {
+                if (patron2.BorrowedBooks[i] == book1)
+                {
+                    bookBorrowedToSecondPerson = true;
+                    break;
+                }
+            }
+            Assert.False(bookBorrowedToSecondPerson); // Checks that the book isn't borrowed by a second person at the same time.
+
+            Author author2 = new Author("Zadie", "Smith", new DateOnly(1975, 10, 25));
+            Book book2 = new Book("White teeth", author2, 2000);
+            Author michaelChabon = new Author("Michael", "Chabon", new DateOnly(1963, 5, 24));
+            Book book3 = new Book("The amazing adventures of Kavalier & Clay", michaelChabon, 2000);
+            library.LendBook(book2, patron1);
+            library.LendBook(book3, patron1);
+            Assert.False(book3.IsBorrowed); // Checks that the patron cannot borrow more than 2 books (maximum).
+        }
     }
 }
