@@ -70,5 +70,26 @@ namespace LibraryExercise.Tests
             library.LendBook(book3, patron1);
             Assert.False(book3.IsBorrowed); // Checks that the patron cannot borrow more than 2 books (maximum).
         }
+        [Fact]
+        public void TestReturnBook()
+        {
+            Library library = new Library();
+            Patron patron = new Patron("Katherine", "Murray");
+            Author author = new Author("Jane", "Austen", new DateOnly(1775, 12, 16));
+            Book book1 = new Book("Pride and prejudice", author, 1813);
+            library.LendBook(book1, patron);
+            library.ReturnBook(book1, patron);
+            bool patronHasThisBook = false;
+            for (int i = 0; i < patron.BorrowedBooks.Length; i++)
+            {
+                if (patron.BorrowedBooks[i] == book1)
+                {
+                    patronHasThisBook = true;
+                    break;
+                }
+            }
+            Assert.False(patronHasThisBook); // Checks that the patron doesn't have the book in his borrowed books anymore.
+            Assert.False(book1.IsBorrowed); // Checks that the book's status is switched to not borrowed.
+        }
     }
 }
