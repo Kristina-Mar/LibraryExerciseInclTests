@@ -22,30 +22,12 @@ namespace LibraryExercise
             AllPatrons[patronIndex] = patron;
             patronIndex++; //The program remembers where to put the next new patron in the array, aka the next free index.
         }
-        public void LendBook(int bookID, int patronID)
+        public void LendBook(Book book, Patron patron)
         {
-            Book book = new Book();
-            for (int i = 0; i < AllBooks.Length; i++) // Finds the book based on its ID - no need to write out all the book information.
-            {
-                if (AllBooks[i].BookID == bookID)
-                {
-                    book = AllBooks[i];
-                    break;
-                }
-            }
             if (book.IsBorrowed) // A patron cannot borrow a book borrowed by someone else.
             {
                 Console.WriteLine("This book is already borrowed by somebody else.");
                 return;
-            }
-            Patron patron = new Patron();
-            for (int i = 0; i < AllPatrons.Length; i++) // Finds the patron based on their ID - no need to write out all the patron information.
-            {
-                if (AllPatrons[i].PatronID == patronID)
-                {
-                    patron = AllPatrons[i];
-                    break;
-                }
             }
             for (int i = 0; i < patron.BorrowedBooks.Length; i++)
             {
@@ -63,26 +45,8 @@ namespace LibraryExercise
             }
             book.IsBorrowed = true;
         }
-        public void ReturnBook(int bookID, int patronID) // You only need patron ID and book ID to return a book.
+        public void ReturnBook(Book book, Patron patron)
         {
-            Book book = new Book();
-            for (int i = 0; i < AllBooks.Length; i++) // Finds the book based on its ID.
-            {
-                if (AllBooks[i].BookID == bookID)
-                {
-                    book = AllBooks[i];
-                    break;
-                }
-            }
-            Patron patron = new Patron();
-            for (int i = 0; i < AllPatrons.Length; i++) // Finds the patron based on their ID.
-            {
-                if (AllPatrons[i].PatronID == patronID)
-                {
-                    patron = AllPatrons[i];
-                    break;
-                }
-            }
             for (int i = 0; i < patron.BorrowedBooks.Length; i++)
             {
                 if (patron.BorrowedBooks[i] == book)

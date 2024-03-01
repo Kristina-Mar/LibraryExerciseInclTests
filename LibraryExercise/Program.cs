@@ -21,14 +21,14 @@
             library.AddNewBook(book3);
             //library.ListAllBooks();
             //library.ListAllPatrons();
-            library.LendBook(3, 2);
-            library.LendBook(2, 2);
-            library.LendBook(1, 2);
-            library.LendBook(3, 1);
-            library.LendBook(1, 1);
-            library.ReturnBook(1, 2);
-            library.ReturnBook(3, 2);
-            library.LendBook(3, 3);
+            library.LendBook(book3, patron1);
+            library.LendBook(book2, patron2);
+            library.LendBook(book1, patron2);
+            library.LendBook(book3, patron1);
+            library.LendBook(book1, patron1);
+            library.ReturnBook(book1, patron2);
+            library.ReturnBook(book3, patron2);
+            library.LendBook(book3, patron3);
             library.ListAllPatrons();
         }
     }
