@@ -68,7 +68,17 @@ namespace LibraryExercise.Tests
             Book book3 = new Book("The amazing adventures of Kavalier & Clay", michaelChabon, 2000);
             library.LendBook(book2, patron1);
             library.LendBook(book3, patron1);
-            Assert.False(book3.IsBorrowed); // Checks that the patron cannot borrow more than 2 books (maximum).
+            bool patronHasThirdBook = false;
+            for (int i = 0; i < patron1.BorrowedBooks.Length; i++)
+            {
+                if (patron1.BorrowedBooks[i] == book3)
+                {
+                    patronHasThirdBook = true;
+                    break;
+                }
+            }
+            Assert.False(patronHasThirdBook); // Checks that the patron doesn't have the third book (2 is maximum).
+            Assert.False(book3.IsBorrowed); // Checks that the third book's status remains not borrowed.
         }
         [Fact]
         public void TestReturnBook()
